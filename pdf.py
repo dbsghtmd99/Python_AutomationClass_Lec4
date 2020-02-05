@@ -1,20 +1,14 @@
-# Python_AutomationClass_Lec4
+from trace import Trace
 
-네 번째 수업에서는 python을 이용하여 pdf와 엑셀 파일에 대한 처리를 어떻게 할 지에 대해 학습했다.
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from pdfminer.pdfpage import PDFPage
+from io import StringIO
+from openpyxl import Workbook
+from openpyxl import load_workbook
 
-코드 원본 파일은 [https://github.com/dbsghtmd99/Python_AutomationClass_Lec4](https://github.com/dbsghtmd99/Python_AutomationClass_Lec4) 에서 확인 가능하다.
 
-## 1. 라이브러리 설명
-
-1. pdfminer : pdf의 텍스트를 추출하는 기능 제공
-   
-2. openpyxl : python을 이용하여 각 셀에 원하는 값을 지정한 후, .xlsx 파일을 만들어 주는 기능 제공
-
-## 2. 수업 때 다루었던 내용
-
-1. pdf의 내용을 읽어와서 텍스트로 출력
-   
-```python
 def convertPdf(file):
     resourceManager = PDFResourceManager()
     _string = StringIO()
@@ -40,13 +34,10 @@ def convertPdf(file):
     _string.close()
     return temp
 
-    # file = 'C:\\Users\\HS YUN\\Desktop\\pythonpdf\\1. pdf_to_text.pdf'
-    # print(convertPdf(file)) # for test
-```
 
-2. 엑셀 파일을 만들고 각 셀에 원하는 값을 작성
-   
-```python
+# file = 'C:\\Users\\HS YUN\\Desktop\\pythonpdf\\1. pdf_to_text.pdf'
+# print(convertPdf(file))
+
 def createExcel():
     write_wb = Workbook()
     # 이름이 있는 시트를 생성
@@ -63,12 +54,9 @@ def createExcel():
     filePath = 'C:\\Users\\HS YUN\\Desktop\\pythonpdf\\test.xlsx'
     write_wb.save(filePath)
 
-    # createExcel() # for test
-```
 
-3. 이미 작성된 내용이 있는 엑셀 파일로부터 셀의 값을 읽어오기
-   
-```python
+# createExcel()
+
 def readExcel():
     # data_only Ture 로 해줘야 수식이 아닌 값으로 받아온다
     filePath = 'C:\\Users\\HS YUN\\Desktop\\pythonpdf\\test.xlsx'
@@ -108,12 +96,9 @@ def readExcel():
         allVal.append(rowVal)
     print(allVal)
 
-    # readExcel() # for test
-```
+# readExcel()
 
-## 3. 연습문제
 
-```python
 def exercise():
     pdfPath = 'C:\\Users\\HS YUN\\Desktop\\pythonpdf\\2. pdf_to_excel.pdf'
     text = convertPdf(pdfPath)
@@ -173,12 +158,9 @@ def exercise():
     print(arr)
     for i in range(0, 4):
         for j in range(0, 6):
-            # 2차원 배열을 구현하는 것처럼 index를 지정해 주었음
-            # 또한 엑셀은 zero index 가 아닌 1, 1 부터 시작함에 주의 해야함
             write_ws.cell(i+3, j+1, arr[i + 4*j])
     filePath = 'C:\\Users\\HS YUN\\Desktop\\pythonpdf\\test2.xlsx'
     write_wb.save(filePath)
 
 
-    # exercise() # for test
-```
+# exercise()
